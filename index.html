@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CONTACT ID MASTER BOOK</title>
+<meta name="theme-color" content="#0F172A">
+<!--PWA--><link rel="manifest" href="manifest.json"><link rel="icon" href="icon.svg"><link rel="apple-touch-icon" href="icon.svg"><!--/PWA-->
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8FAFC;--panel:#fff;--bd:#E2E8F0;--tx:#0F172A;--mu:#64748B;--pr:#2563EB;--sec:#14B8A6;--ok:#22C55E;--wa:#F59E0B;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0F172A;--panel:#1E293B;--bd:#334155;--tx:#F1F5F9;--mu:#94A3B8}}
+:root[data-theme=dark]{--bg:#0F172A;--panel:#1E293B;--bd:#334155;--tx:#F1F5F9;--mu:#94A3B8}
+*{box-sizing:border-box}html{scroll-padding-top:70px}body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.7 Rubik,Inter,system-ui,sans-serif}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;gap:8px;align-items:center;padding:10px 14px;background:var(--panel);border-bottom:1px solid var(--bd)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--panel);z-index:6}
+.logo{font-weight:700;color:var(--pr);white-space:nowrap}
+button,.btn{font:inherit;cursor:pointer;border:1px solid var(--bd);background:var(--panel);color:var(--tx);border-radius:10px;padding:6px 12px}
+.pri{background:var(--pr);color:#fff;border-color:var(--pr)}
+#q{flex:1;min-width:0;padding:8px 12px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit}
+.wrap{display:grid;grid-template-columns:270px minmax(0,1fr) 220px;max-width:1500px;margin:auto}
+nav,aside{position:sticky;top:64px;height:calc(100vh - 64px);overflow:auto;padding:14px;font-size:14px}
+nav a,aside a{display:block;padding:4px 8px;border-radius:8px;color:var(--mu);text-decoration:none}
+nav a:hover,nav a.on,aside a:hover{background:var(--panel);color:var(--pr)}
+nav h4{margin:14px 8px 4px;font-size:12px;color:var(--sec);letter-spacing:.05em}
+main{padding:20px 28px 80px;min-width:0}
+.crumb{color:var(--mu);font-size:13px}.crumb a{color:var(--pr);text-decoration:none}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:16px 0}
+.card{background:var(--panel);border:1px solid var(--bd);border-radius:14px;padding:16px}
+.kpi b{display:block;font-size:30px;color:var(--pr)}.kpi span{color:var(--mu);font-size:14px}
+.callout{border-inline-start:4px solid var(--sec);background:var(--panel);padding:10px 14px;border-radius:8px;margin:14px 0}
+table{border-collapse:collapse;width:100%;display:block;overflow-x:auto}td,th{border:1px solid var(--bd);padding:8px 10px;text-align:start}
+.res a{display:block;padding:10px 12px;border:1px solid var(--bd);border-radius:10px;margin:6px 0;color:var(--tx);text-decoration:none;background:var(--panel)}
+.st{font-size:12px;color:var(--mu)}
+.inst{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+#tgl{display:none}
+@media(max-width:1000px){.wrap{display:block}aside{display:none}nav{position:fixed;inset:0 0 0 auto;width:80%;max-width:300px;z-index:7;background:var(--bg);border-inline-start:1px solid var(--bd);height:100%;transform:translateX(110%);transition:.2s}nav.open{transform:none}[dir=rtl] nav{inset:0 auto 0 0;transform:translateX(-110%)}[dir=rtl] nav.open{transform:none}#tgl{display:block}main{padding:16px}}
+</style></head><body>
+<header><button id="tgl" aria-label="תפריט">☰</button><span class="logo">◆ CONTACT ID</span><input id="q" type="search" placeholder="חיפוש בספר (כרכים, טכנולוגיות, מושגים)…"><button id="bm" title="מועדפים">★</button><button id="th" title="מצב כהה/בהיר">◐</button><button id="ib" class="pri">⬇ התקנה</button></header>
+<div class="wrap"><nav id="nav"></nav><main id="main"></main><aside id="toc"></aside></div>
+<script>
+const SEC=[["vision","Part A · חזון","Vision",[1,2,3]],["product","Part B · מוצר","Product",[4,5]],["technology","Part C · טכנולוגיה","Technology",[6,7,8,9]],["security","Part D · אבטחה","Security",[10,11,12]],["ip","Part E · קניין רוחני וחדשנות","IP & Innovation",[21]],["company","Part F · חברה","Company",[13,14,15]],["finance","Part G · פיננסים","Finance",[16,17]],["execution","Part H · ביצוע","Execution",[18,19]],["launch","Part I · השקה","Launch",[20,22]]];
+const T=["Executive Summary","Vision & Mission","Market Analysis","Product Overview","User Experience","Technology Architecture","Platform & APIs","Data & AI","Infrastructure","Security Framework","Privacy & Compliance","Risk Management","Company Structure","Team & Culture","Governance","Financial Model","Funding & Investors","Execution Roadmap","Operations","Launch Strategy","Innovation Portfolio","Go-to-Market Playbook"];
+const slug=t=>t.toLowerCase().replace(/&/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const V=T.map((t,i)=>{const n=i+1,s=SEC.find(x=>x[3].includes(n));return{n,t,id:String(n).padStart(2,"0")+"-"+slug(t),sec:s[0],secName:s[1]}});
+const AP=Array.from({length:20},(_,i)=>({id:"A"+String(i+1).padStart(2,"0"),t:"נספח "+(i+1)}));
+const $=s=>document.querySelector(s),main=$("#main");
+let st={bm:[],last:null,theme:null};
+const e=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function body(v){return`<p class="st">תוכן זמני – יוחלף בתוכן הכרך המלא מתוך ספר ה-Master.</p>
+<h1 id="h1">כרך ${v.n}: ${e(v.t)}</h1><div class="callout"><b>תקציר מנהלים.</b> סעיף זה מרכז את עיקרי הכרך עבור קוראי הנהלה, משקיעים וצוותי מוצר.</div>
+<h2 id="h2a">מטרות</h2><p>הגדרת היעדים העסקיים והטכנולוגיים של הכרך בהקשר מערכת CONTACT ID.</p>
+<h3 id="h3a">מדדי הצלחה</h3><div class="grid"><div class="card kpi"><b>—</b><span>KPI 1</span></div><div class="card kpi"><b>—</b><span>KPI 2</span></div><div class="card kpi"><b>—</b><span>KPI 3</span></div></div>
+<h2 id="h2b">תוכן מפורט</h2><table><tr><th>נושא</th><th>תיאור</th><th>סטטוס</th></tr><tr><td>רכיב 1</td><td>—</td><td>טיוטה</td></tr><tr><td>רכיב 2</td><td>—</td><td>טיוטה</td></tr></table>
+<h3 id="h3b">הערות יישום</h3><pre class="card" dir="ltr">// code / diagram block</pre><h4 id="h4a">הפניות</h4><p>ראו גם כרכים סמוכים בסעיף ${e(v.secName)}.</p>`}
+function mk(v){return`<div class="crumb"><a href="#/">בית</a> › <a href="#/section/${v.sec}">${e(v.secName)}</a> › ${e(v.t)}</div>`+body(v)}
+function toc(){const h=[...main.querySelectorAll("h1,h2,h3,h4")];$("#toc").innerHTML=h.length>1?"<b>בעמוד זה</b>"+h.map(x=>`<a href="#" data-g="${x.id}" style="padding-inline-start:${(+x.tagName[1]-1)*10+8}px">${e(x.textContent)}</a>`).join(""):""}
+document.addEventListener("click",ev=>{const a=ev.target.closest("[data-g]");if(a){ev.preventDefault();document.getElementById(a.dataset.g).scrollIntoView({behavior:"smooth"})}if(ev.target.closest("nav a"))$("#nav").classList.remove("open")});
+function nav(cur){$("#nav").innerHTML=`<a href="#/" class="${cur=="/"?"on":""}">🏠 דשבורד</a><h4>סקשנים</h4>`+SEC.map(s=>`<a href="#/section/${s[0]}">${s[1]}</a>`).join("")+`<h4>כרכים</h4>`+V.map(v=>`<a href="#/volume/${v.id}" class="${cur=="/volume/"+v.id?"on":""}">${v.n}. ${e(v.t)}</a>`).join("")+`<h4>נספחים</h4><a href="#/appendices">20 נספחים</a><h4>אפליקציה</h4><a href="#/install">⬇ התקנה וסנכרון</a>`}
+const list=a=>a.map(v=>`<a href="#/volume/${v.id}"><b>${v.n}. ${e(v.t)}</b><br><span class="st">${e(v.secName)}</span></a>`).join("");
+function install(){return`<div class="crumb"><a href="#/">בית</a> › התקנה</div><h1>התקנה וסנכרון</h1><p>האפליקציה מותקנת כ-PWA: אייקון משלה, חלון עצמאי, עבודה אופליין – בטלפון ובווינדוס.</p><div class="inst">
+<div class="card"><h3>🪟 Windows</h3><button class="pri" data-i>התקן ל-Windows</button><p class="st">ב-Edge/Chrome: ⋯ ← אפליקציות ← התקן אתר כאפליקציה. תיווצר קיצור בתפריט התחל.</p></div>
+<div class="card"><h3>🤖 Android</h3><button class="pri" data-i>התקן ל-Android</button><p class="st">Chrome: ⋮ ← התקן אפליקציה / הוסף למסך הבית.</p></div>
+<div class="card"><h3> iPhone / iPad</h3><button data-i>הוראות התקנה</button><p class="st">Safari: שיתוף ← הוסף למסך הבית.</p></div></div>
+<div class="callout"><b>סנכרון:</b> מועדפים, מיקום קריאה ומצב תצוגה מסונכרנים אוטומטית בין המכשירים כשמחוברים לאותו חשבון Claude. <span id="sy" class="st"></span></div>`}
+function route(){const p=location.hash.slice(1)||"/";nav(p);let h="";
+let m;if(p=="/")h=`<h1>CONTACT ID MASTER BOOK</h1><p>פורטל הידע הרשמי של מערכת CONTACT ID.</p><div class="grid"><div class="card kpi"><b>22</b><span>כרכים</span></div><div class="card kpi"><b>9</b><span>סקשנים</span></div><div class="card kpi"><b>20</b><span>נספחים</span></div><div class="card kpi"><b>5100+</b><span>בלוקי תוכן</span></div></div>`+(st.last?`<p><a href="#/volume/${st.last}">▶ המשך קריאה</a></p>`:"")+`<h2>סקשנים</h2><div class="res">`+SEC.map(s=>`<a href="#/section/${s[0]}"><b>${s[1]}</b> <span class="st">${s[3].length} כרכים</span></a>`).join("")+`</div><div class="callout">⬇ <a href="#/install">התקן כאפליקציה לנייד ול-Windows</a></div>`;
+else if(m=p.match(/^\/volume\/(.+)/)){const v=V.find(x=>x.id==m[1]);h=v?mk(v):"לא נמצא";if(v){st.last=v.id;save()}}
+else if(m=p.match(/^\/section\/(.+)/)){const s=SEC.find(x=>x[0]==m[1]);h=s?`<div class="crumb"><a href="#/">בית</a> › ${s[1]}</div><h1>${s[1]}</h1><div class="res">${list(V.filter(v=>v.sec==s[0]))}</div>`:"לא נמצא"}
+else if(p=="/appendices")h=`<h1>נספחים</h1><div class="res">`+AP.map(a=>`<a href="#/appendices"><b>${a.id}</b> ${a.t}</a>`).join("")+`</div>`;
+else if(p=="/install")h=install();
+else if(p=="/bookmarks")h=`<h1>★ מועדפים</h1><div class="res">${list(V.filter(v=>st.bm.includes(v.id)))||"אין עדיין"}</div>`;
+else if(m=p.match(/^\/search\/(.*)/))h=`<h1>חיפוש</h1><div class="res">${list(V.filter(v=>(v.t+v.secName+v.id).toLowerCase().includes(decodeURIComponent(m[1]).toLowerCase())))||"אין תוצאות"}</div>`;
+main.innerHTML=h;toc();scrollTo(0,0)}
+$("#q").oninput=e=>{const q=e.target.value.trim();location.hash=q?"#/search/"+encodeURIComponent(q):"#/"};
+$("#tgl").onclick=()=>$("#nav").classList.toggle("open");
+$("#bm").onclick=()=>{const m=location.hash.match(/volume\/(.+)/);if(!m){location.hash="#/bookmarks";return}const i=st.bm.indexOf(m[1]);i<0?st.bm.push(m[1]):st.bm.splice(i,1);save();$("#bm").textContent=i<0?"★ נשמר":"★"};
+$("#th").onclick=()=>{st.theme=document.documentElement.dataset.theme=="dark"?"light":"dark";applyT();save()};
+function applyT(){if(st.theme)document.documentElement.dataset.theme=st.theme}
+// Install
+let dp=null;addEventListener("beforeinstallprompt",e=>{e.preventDefault();dp=e});
+async function doInstall(){if(dp){dp.prompt();await dp.userChoice;dp=null}else location.hash="#/install"}
+$("#ib").onclick=doInstall;document.addEventListener("click",e=>{if(e.target.closest("[data-i]"))doInstall()});
+if(matchMedia("(display-mode: standalone)").matches)$("#ib").hidden=true;
+// Sync (db when available; otherwise localStorage)
+let ref=null,tm;function lsGet(){try{return JSON.parse(localStorage.getItem("cid")||"null")}catch(e){return null}}
+function save(){try{localStorage.setItem("cid",JSON.stringify(st))}catch(e){}clearTimeout(tm);tm=setTimeout(()=>{ref&&ref.set({...st,t:Date.now()}).catch(()=>{})},800)}
+async function initSync(){try{const c=window.claude;if(!c)return;const[db,u]=await Promise.all([c.use("db"),c.use("user")]);if(!db||!u)return;const id=await u.id();if(!id)return;ref=db.collection("data/users/"+id).doc("prefs");const s=await ref.get();if(s.exists){const d=s.data();st={bm:d.bm||[],last:d.last||st.last,theme:d.theme||st.theme};applyT();route()}const el=$("#sy");if(el)el.textContent="✓ מחובר לסנכרון"}catch(e){}}
+Object.assign(st,lsGet()||{});applyT();
+addEventListener("hashchange",route);route();initSync();
+if("serviceWorker"in navigator&&location.protocol.startsWith("http")&&document.querySelector('link[rel=manifest]'))navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script></body></html>
